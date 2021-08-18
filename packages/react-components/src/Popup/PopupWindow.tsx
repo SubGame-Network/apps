@@ -34,7 +34,7 @@ export default React.memo(styled(PopupWindow)`
   z-index: 300;
 
   margin: 0.7rem 0;
-  padding: 0.85rem 1rem;
+  padding: 1rem 1rem;
 
   color: var(--color-text);
   background-color: var(--bg-menu);
