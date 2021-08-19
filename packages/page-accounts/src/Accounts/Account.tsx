@@ -231,6 +231,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
     createMenuGroup('identityGroup', [
       isFunction(api.api.tx.identity?.setIdentity) && !isHardware && (
         <Menu.Item
+          icon='link'
           key='identityMain'
           onClick={toggleIdentityMain}
         >
@@ -239,6 +240,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
       ),
       isFunction(api.api.tx.identity?.setSubs) && identity?.display && !isHardware && (
         <Menu.Item
+          icon='vector-square'
           key='identitySub'
           onClick={toggleIdentitySub}
         >
@@ -247,6 +249,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
       ),
       isFunction(api.api.tx.democracy?.unlock) && democracyUnlockTx && (
         <Menu.Item
+          icon='broom'
           key='clearDemocracy'
           onClick={_clearDemocracyLocks}
         >
@@ -255,6 +258,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
       ),
       isFunction(api.api.tx.vesting?.vest) && vestingVestTx && (
         <Menu.Item
+          icon='unlock'
           key='vestingVest'
           onClick={_vestingVest}
         >
@@ -265,6 +269,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
     createMenuGroup('deriveGroup', [
       !(isExternal || isHardware || isInjected || isMultisig) && (
         <Menu.Item
+          icon='download'
           key='deriveAccount'
           onClick={toggleDerive}
         >
@@ -273,6 +278,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
       ),
       isHardware && (
         <Menu.Item
+          icon='eye'
           key='showHwAddress'
           onClick={_showOnHardware}
         >
@@ -283,6 +289,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
     createMenuGroup('backupGroup', [
       !(isExternal || isHardware || isInjected || isMultisig || isDevelopment) && (
         <Menu.Item
+          icon='database'
           key='backupJson'
           onClick={toggleBackup}
         >
@@ -291,6 +298,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
       ),
       !(isExternal || isHardware || isInjected || isMultisig || isDevelopment) && (
         <Menu.Item
+          icon='edit'
           key='changePassword'
           onClick={togglePassword}
         >
@@ -299,6 +307,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
       ),
       !(isInjected || isDevelopment) && (
         <Menu.Item
+          icon='trash-alt'
           key='forgetAccount'
           onClick={toggleForget}
         >
@@ -309,6 +318,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
     isFunction(api.api.tx.recovery?.createRecovery) && createMenuGroup('reoveryGroup', [
       !recoveryInfo && (
         <Menu.Item
+          icon='redo'
           key='makeRecoverable'
           onClick={toggleRecoverSetup}
         >
@@ -316,6 +326,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
         </Menu.Item>
       ),
       <Menu.Item
+        icon='screwdriver'
         key='initRecovery'
         onClick={toggleRecoverAccount}
       >
@@ -325,6 +336,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
     isFunction(api.api.tx.multisig?.asMulti) && isMultisig && createMenuGroup('multisigGroup', [
       <Menu.Item
         disabled={!multiInfos || !multiInfos.length}
+        icon='file-signature'
         key='multisigApprovals'
         onClick={toggleMultisig}
       >
@@ -333,12 +345,14 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
     ], t('Multisig')),
     isFunction(api.api.query.democracy?.votingOf) && delegation?.accountDelegated && createMenuGroup('undelegateGroup', [
       <Menu.Item
+        icon='user-edit'
         key='changeDelegate'
         onClick={toggleDelegate}
       >
         {t('Change democracy delegation')}
       </Menu.Item>,
       <Menu.Item
+        icon='user-minus'
         key='undelegate'
         onClick={toggleUndelegate}
       >
@@ -347,6 +361,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
     ], t('Undelegate')),
     isFunction(api.api.query.democracy?.votingOf) && !delegation?.accountDelegated && createMenuGroup('delegateGroup', [
       <Menu.Item
+        icon='user-plus'
         key='delegate'
         onClick={toggleDelegate}
       >
@@ -355,6 +370,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
     ], t('Delegate')),
     isFunction(api.api.query.proxy?.proxies) && createMenuGroup('proxyGroup', [
       <Menu.Item
+        icon='sitemap'
         key='proxy-overview'
         onClick={toggleProxyOverview}
       >
@@ -371,7 +387,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
         key='chainlock'
         onChange={onSetGenesisHash}
       />
-    ], t('Genesis'))
+    ])
   ].filter((i) => i),
   [_clearDemocracyLocks, _showOnHardware, _vestingVest, api, delegation, democracyUnlockTx, genesisHash, identity, isDevelopment, isEditable, isExternal, isHardware, isInjected, isMultisig, multiInfos, onSetGenesisHash, proxy, recoveryInfo, t, toggleBackup, toggleDelegate, toggleDerive, toggleForget, toggleIdentityMain, toggleIdentitySub, toggleMultisig, togglePassword, toggleProxyOverview, toggleRecoverAccount, toggleRecoverSetup, toggleUndelegate, vestingVestTx]);
 
@@ -622,10 +638,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
           className={`theme--${theme}`}
           isDisabled={!menuItems.length}
           value={
-            <Menu
-              text
-              vertical
-            >
+            <Menu>
               {menuItems}
             </Menu>
           }
